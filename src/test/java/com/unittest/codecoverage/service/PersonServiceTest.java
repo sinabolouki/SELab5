@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 import java.util.List;
 
 import org.assertj.core.util.Lists;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -96,5 +97,28 @@ public class PersonServiceTest {
 			.hasFieldOrPropertyWithValue("errors", expectedErrors)
 			.hasMessage(expectedMessage);
 	}
+
+    @Test
+    public void testGet_shouldGetPerson() {
+        Person peter = new Person();
+        peter.setAge(40);
+        peter.setName("Peter");
+        peter.setGender(Gender.M);
+        when(repository.get("Name")).thenReturn(peter);
+        Person serviceReturnedPerson = service.get("Name");
+        Assertions.assertEquals(peter, serviceReturnedPerson);
+    }
+
+    @Test
+    public void testUpdate_shouldUpdatePersonWithSuccessWhenNotChangedWithNull() {
+        Person peter = new Person();
+        peter.setGender(Gender.M);
+        peter.setAge(50);
+        peter.setName("Peter");
+        Person gottenPerson = repository.get("Peter");
+        service.update(peter);
+    }
+
+
 
 }

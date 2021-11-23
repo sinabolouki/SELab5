@@ -13,7 +13,7 @@ public class PersonValidator {
 	}
 	
 	public boolean requiredName(String name) {
-		return name != null && name.trim().length() > 0;
+		return !(name != null && name.trim().length() > 0);
 	}
 	
 	public boolean requiredGender(Person person) {
